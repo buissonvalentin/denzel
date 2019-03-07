@@ -19,7 +19,7 @@ var database;
 var collection;
 var movies;
 
-
+//Create Database connection
 MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
     if (error) {
         console.log(error);
@@ -31,6 +31,7 @@ MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) =
     console.log("Connected to `" + DATABASE_NAME + "`!");
 });
 
+//Populate database
 app.get('/movies/populate', (req, res) => {
     if (!collection) {
         return res.status(500).send('Database not connected');
@@ -47,11 +48,12 @@ app.get('/movies/populate', (req, res) => {
     });
 });
 
+//Get random must watch movie
 app.get('/movies', (req, res) => {
     if (!collection) {
         return res.status(500).send('Database not connected');
     }
-    collection.find({ metascore: { $gt: 70 } }).toArray((error, result) => {
+    collection.find({ metascore: { $gte: 70 } }).toArray((error, result) => {
         if (error) {
             return res.status(500).send(error);
         }
@@ -61,6 +63,22 @@ app.get('/movies', (req, res) => {
     });
 });
 
+//Search movie
+app.get('/movies/search', (req, res) => {
+    if (!collection) {
+        return res.status(500).send('Database not connected');
+    }
+    var limit = (Number(req.query.limit)) ? Number(req.query.limit) : 5;
+    var metascore = (Number(req.query.metascore)) ? Number(req.query.metascore) : 0;
+    collection.aggregate([{ $match: { metascore: { $gte: metascore } } }, { $limit: limit }, { $sort: { metascore: -1 } }]).toArray((error, result) => {
+        if (error) {
+            return res.status(500).send(error);
+        }
+        res.send(result);
+    });
+});
+
+//Get movie by id
 app.get('/movies/:id', (req, res) => {
     if (!collection) {
         return res.status(500).send('Database not connected');
@@ -74,12 +92,23 @@ app.get('/movies/:id', (req, res) => {
             res.send(result[0]);
         }
         else {
-            res.status(500).send({error : `no match for id : ${id}`});
+            res.status(500).send({ error: `no match for id : ${id}` });
         }
 
     });
 });
 
+app.post('/movies/:id', (req, res) =>{
+    var id = req.params.id;
+    var date = req.query.date;
+    var review = req.params.review;
+    console.log('param : ' + JSON.stringify(req.params));
+    console.log('query : ' + JSON.stringify(req.query));
+    console.log('body : ' + JSON.stringify(req.body));
+    console.log(`id : ${id}; date : ${date}; review : ${review}`);
+});
+
+//Path not found
 app.get('*', (req, res) => {
     res.status(404).send({ error: 'path not found' });
 });
