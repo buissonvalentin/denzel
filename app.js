@@ -4,10 +4,10 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 const imdb = require('./src/imdb');
 const DENZEL_IMDB_ID = 'nm0000243';
+const env = require('dotenv').config();
 
 
-
-const CONNECTION_URL = "mongodb+srv://root:root@denzelmovies-696nb.mongodb.net/test?retryWrites=true";
+const CONNECTION_URL = `mongodb+srv://${env.parsed.DB_USER}:${env.parsed.DB_PASS}@denzelmovies-696nb.mongodb.net/test?retryWrites=true`;
 const DATABASE_NAME = "denzelmovies";
 
 var app = Express();
@@ -63,7 +63,7 @@ app.get('/movies', (req, res) => {
     });
 });
 
-//Search movie
+//Search movie by metascore wit limit
 app.get('/movies/search', (req, res) => {
     if (!collection) {
         return res.status(500).send('Database not connected');
@@ -98,14 +98,22 @@ app.get('/movies/:id', (req, res) => {
     });
 });
 
+//Add a review and date to a movie
 app.post('/movies/:id', (req, res) =>{
+    if (!collection) {
+        return res.status(500).send('Database not connected');
+    }
     var id = req.params.id;
-    var date = req.query.date;
-    var review = req.params.review;
-    console.log('param : ' + JSON.stringify(req.params));
-    console.log('query : ' + JSON.stringify(req.query));
-    console.log('body : ' + JSON.stringify(req.body));
-    console.log(`id : ${id}; date : ${date}; review : ${review}`);
+    var date = req.body.date;
+    var review = req.body.review;
+    collection.update({id: id}, {$set: {"date": date, 'review' : review}}, (error, result) => {
+        if (error) {
+            return res.status(500).send(error);
+        }
+        else {
+            res.send(result);
+        }
+    });
 });
 
 //Path not found
