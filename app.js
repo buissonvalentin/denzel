@@ -5,12 +5,16 @@ const ObjectId = require("mongodb").ObjectID;
 const imdb = require('./src/imdb');
 const DENZEL_IMDB_ID = 'nm0000243';
 const env = require('dotenv').config();
+var cors = require('cors');
+ 
+
 
 
 const CONNECTION_URL = `mongodb+srv://${env.parsed.DB_USER}:${env.parsed.DB_PASS}@denzelmovies-696nb.mongodb.net/test?retryWrites=true`;
 const DATABASE_NAME = "denzelmovies";
 
 var app = Express();
+app.use(cors());
 
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
@@ -30,6 +34,19 @@ MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) =
     database = client.db(DATABASE_NAME);
     collection = database.collection("movies");
     console.log("Connected to `" + DATABASE_NAME + "`!");
+});
+
+
+app.get('/', (req, res) =>{
+    res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/main.js', (req, res) =>{
+    res.sendFile(__dirname + '/main.js');
+});
+
+app.get('/style.css', (req, res) =>{
+    res.sendFile(__dirname + '/style.css');
 });
 
 
@@ -60,7 +77,7 @@ app.get('/movies', (req, res) => {
             return res.status(500).send(error);
         }
         var index = Math.floor(Math.random() * result.length);
-        var movie = result[index].title;
+        var movie = result[index];
         res.send(movie);
     });
 });
@@ -98,10 +115,6 @@ app.get('/movies/:id', (req, res) => {
         }
 
     });
-});
-
-app.get('/test', (res, req) =>{
-    req.send('hello test');
 });
 
 //Add a review and date to a movie

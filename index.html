@@ -1,23 +1,43 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="row">
-            <div class="block">
-                Block 1
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1 class="text-success">Random Denzel Movie</h1>
+    <div class="main">
+        <img id="poster" class="poster"
+            src="https://m.media-amazon.com/images/M/MV5BOTg0Nzc1NjA0MV5BMl5BanBnXkFtZTgwNTcyNDQ0MDI@._V1_UX182_CR0,0,182,268_AL_.jpg"></img>
+        <div class="info">
+            <div id="title" class="title">Fences</div>
+            <div class="detail">
+                <div class="link">
+                    <a target="_blank" id="link">See on IMDB</a>
+                </div>
+                <div id="rating" class="note">
+                    Rating : 8/10
+                </div>
             </div>
-            <div class="block">
-                Block 2
+            <div class="extra">
+                <div class="desc">
+                    <p style="float : left" id=desc></p>
+
+                </div>
+
+                <div id="review" class="review"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="block">
-                Block 3
-            </div>
-            <div class="block">
-                Block 4
-            </div>
+        <div class="btnCont">
+            <button id="btn" class="reload btn btn-success btn-lg ">New Movie</button>
         </div>
-    </body>
+    </div>
+
+</body>
+
 </html>

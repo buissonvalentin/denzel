@@ -3,15 +3,86 @@ body{
     padding: 0px;
 }
 
-.row{
-    width: 100%;
-    height: 50%;
-    margin: 0px;
-    display: flex;
+h1{
+    width: 60%;
+    margin-left: 20%;
+    text-align: center;
 }
 
-.block{
+.main{
+    width: 60%;
+    height: 60%;
+    position: relative;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0);
+}
+
+.poster{
     width: 50%;
     height: 100%;
-    padding: 10px;
+    object-fit: contain;
+}
+
+.info{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+
+.title{
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.detail{
+    width: 100%;
+    height: 15%;
+}
+
+.link{
+    height: 100%;
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.note{
+    line-height: 100%;
+    text-align: center;
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+
+.extra{
+    height: 65%;
+    width: 100%;
+}
+
+.desc{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.review{
+    width:50%;
+    height: 100%;
+    float: right;
+    text-align: center;
+}
+
+.btnCont{
+    margin: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.reload{
+    width: 80%;
 }
