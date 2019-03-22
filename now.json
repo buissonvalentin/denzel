@@ -1,4 +1,7 @@
 {
   "version": 2,
-  "alias": "esilv"
+  "name": "nodejs",
+  "builds": [
+      { "src": "*.js", "use": "@now/node" }
+  ]
 }
