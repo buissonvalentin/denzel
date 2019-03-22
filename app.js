@@ -100,6 +100,10 @@ app.get('/movies/:id', (req, res) => {
     });
 });
 
+app.get('/test', (res, req) =>{
+    req.send('hello test');
+});
+
 //Add a review and date to a movie
 app.post('/movies/:id', (req, res) =>{
     if (!collection) {
