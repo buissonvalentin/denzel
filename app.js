@@ -15,6 +15,7 @@ var app = Express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
+var PORT = process.env.PORT || 8080;
 var database;
 var collection;
 var movies;
@@ -30,6 +31,7 @@ MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) =
     collection = database.collection("movies");
     console.log("Connected to `" + DATABASE_NAME + "`!");
 });
+
 
 //Populate database
 app.get('/movies/populate', (req, res) => {
@@ -122,5 +124,6 @@ app.get('*', (req, res) => {
 });
 
 
-app.listen(8080);
+app.listen(PORT);
+console.log(`listening on port ${PORT}`);
 

@@ -1,5 +1,6 @@
 {
   "name": "denzel",
+  "main": "app.js",
   "version": "0.0.1",
   "description": "The must-watch Denzel's movies",
   "dependencies": {
@@ -14,5 +15,14 @@
     "nodemon": "^1.18.10",
     "p-limit": "^2.2.0",
     "p-settle": "^2.1.0"
+  },
+  "engines": {
+    "node": "10.15.3"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
+  
 }
+
+

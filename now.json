@@ -1,7 +1,16 @@
 {
   "version": 2,
-  "name": "nodejs",
+  "name": "api",
   "builds": [
-      { "src": "*.js", "use": "@now/node" }
+    {
+      "src": "api.js",
+      "use": "@now/node-express"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api.js"
+    }
   ]
 }
